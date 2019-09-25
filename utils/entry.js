@@ -18,7 +18,7 @@ exports.module = function () {
                     template,
                     filename,
                     chunks: [key],
-                    inject:'head'
+                    // inject:'head'
                 }
             )
         )
