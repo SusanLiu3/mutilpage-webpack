@@ -5,6 +5,7 @@ let {arrHtmlWebpack,entry}=require('./utils/entry').module();
 
 const {VueLoaderPlugin} = require('vue-loader')
 var {CleanWebpackPlugin}=require('clean-webpack-plugin')
+var AddAssetHtmlWebpackPlugin=require('add-asset-html-webpack-plugin')
 
 
 module.exports={
@@ -54,6 +55,11 @@ module.exports={
         new webpack.DllReferencePlugin({
             context:__dirname,
             manifest:require('./public/library.manifest.json')
+        }),
+        new AddAssetHtmlWebpackPlugin({
+            filepath:require.resolve(path.resolve(__dirname,'public/library_dll_lib.js')),
+            outputPath:'lib', // 生成得js 在dist目录下建的文件夹
+            publicPath:'lib' //  引入js的路径
         })
        
         
