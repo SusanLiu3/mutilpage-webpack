@@ -1,10 +1,8 @@
 let glob = require('glob')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-
 var webpack = require('webpack')
 let entry = {};
 let arrHtmlWebpack = [];
-
 exports.module = function () {
     glob.sync('./src/pages/*/index.js').forEach(filePath => {
         var match = filePath.match(/\.\/src\/pages\/(.+)\/index/)
@@ -18,11 +16,9 @@ exports.module = function () {
                     template,
                     filename,
                     chunks: [key],
-                    // inject:'head'
                 }
             )
         )
     })
-   
     return { arrHtmlWebpack, entry }
 }

@@ -1,10 +1,11 @@
 let path=require('path')
 var test=require('./utils/entry')
+var webpack=require('webpack')
 let {arrHtmlWebpack,entry}=require('./utils/entry').module();
 
 const {VueLoaderPlugin} = require('vue-loader')
 var {CleanWebpackPlugin}=require('clean-webpack-plugin')
-var HtmlWebpackPlugin=require('html-webpack-plugin')
+
 
 module.exports={
     mode:'development',
@@ -35,20 +36,25 @@ module.exports={
            
             {
                 test:/\.css/,
-                use:['style-laoder','css-loader']
+                use:['style-loader','css-loader']
             }
         ]
     },
     resolve:{
-        // alias:{
-        //     'vue$': 'vue/dist/vue.esm.js',
-        // }
+        extensions:['.js','.json','.vue'],
+        alias:{
+            'vue':'vue/dist/vue.esm.js'
+        }
     },
     plugins:[
         new CleanWebpackPlugin(),
         ...arrHtmlWebpack,    
         
         new VueLoaderPlugin(),
+        new webpack.DllReferencePlugin({
+            context:__dirname,
+            manifest:require('./public/library.manifest.json')
+        })
        
         
         
