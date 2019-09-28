@@ -34,17 +34,41 @@ module.exports={
                     path.join(__dirname,'src')
                 ]
             },
+            {
+                test:/\.html$/,
+                // 处理HTML页面中的img标签
+                use:{
+                    loader:'html-withimg-loader'
+                }
+            },
            
             {
                 test:/\.css/,
                 use:['style-loader','css-loader']
-            }
+            },            
+            {
+                test:/\.(png|jpg|gif)$/,
+                use:{
+                    loader:'url-loader',
+                    options:{
+                        limit:9000
+                    }
+                }
+            },
+            // {
+            //     test:/\.(png|jpg|gif)$/,
+            //     use:{
+            //         loader:'file-loader',
+                
+            //     }
+            // },
         ]
     },
     resolve:{
         extensions:['.js','.json','.vue'],
         alias:{
-            'vue':'vue/dist/vue.esm.js'
+            'vue':'vue/dist/vue.esm.js',
+            '@': path.join(__dirname,'/src'),
         }
     },
     plugins:[
